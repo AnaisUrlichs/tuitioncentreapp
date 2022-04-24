@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=SystemManagementTest
+comment0.text=\n\ The\ test\ class\ SystemManagementTest.\n\n\ @author\ \ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=sm
+comment1.target=SystemManagementTest(SystemManagement)
+comment1.text=\n\ Default\ constructor\ for\ test\ class\ SystemManagementTest\n
+comment2.params=sm
+comment2.target=void\ testBookLessons(SystemManagement)
+comment3.params=sm
+comment3.target=void\ testAddBook(SystemManagement)
+comment4.params=sm
+comment4.target=void\ testMarkPresent(SystemManagement)
+comment5.params=sm
+comment5.target=void\ testPrintReport(SystemManagement)
+comment6.params=sm
+comment6.target=void\ test(SystemManagement)
+numComments=7
