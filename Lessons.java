@@ -12,14 +12,15 @@ public class Lessons
     private String day; // <1>
     private String time;
     private String lessonname;
-    private float price;
+    private int price;
     protected boolean available;
     protected int studentMax;
     protected int[] studentIDInClass;
     protected int numberOfStudentsInClass;
+    protected int[] ratings;
+    protected int numberOfRatings;
     
-    // Constructor of class Lesson
-    public Lessons(String day, String time, String lessonname, float price, boolean available ) {
+    public Lessons(String day, String time, String lessonname, int price, boolean available ) {
         this.lid = lid;
         this.day = day;
         this.time = time;
@@ -27,7 +28,9 @@ public class Lessons
         this.price = price;
         this.available = available;
         this.numberOfStudentsInClass = 0;
-        this.studentIDInClass = new int[3];
+        this.studentIDInClass = new int[4];
+        this.ratings = new int[4];
+        this.numberOfRatings = 0;
     }
     
     public void setLID(int newLID)
@@ -70,12 +73,12 @@ public class Lessons
         return this.lessonname;
     }
     
-    public void setPrice(float newPrice)
+    public void setPrice(int newPrice)
     {
         this.price = newPrice;
     }
     
-    public float getPrice()
+    public int getPrice()
     {
         return this.price;
     }
@@ -102,17 +105,38 @@ public class Lessons
     
     public void setStudentsInClass(int newSID)
     {
-        
-        int[] newStudentIDInClass = this.studentIDInClass;
-        try { //<2>
-            newStudentIDInClass[numberOfStudentsInClass] = newSID; //<3>
+        try { 
+            studentIDInClass[numberOfStudentsInClass] = newSID; 
             this.numberOfStudentsInClass += 1; //<4>
-            this.studentIDInClass = newStudentIDInClass;
-            System.out.println("Did it work?");
         } catch (Exception e) { //<5>
-            System.out.println("Could not add another book. Something went wrong."); //<6>
+            System.out.println("Could not add another student to the class. Something went wrong.");
         }
         
+    }
+    
+    public void setRatings(int newRating)
+    {
+        try { 
+            ratings[numberOfRatings] = newRating; 
+            this.numberOfRatings += 1; //<4>
+        } catch (Exception e) { //<5>
+            System.out.println("Could not add another student to the class. Something went wrong.");
+        }
+        
+    }
+    
+    public String getRatings()
+    {
+        return Arrays.toString(this.ratings);
+    }
+    
+    public int getNumberOfRatings()
+    {
+        return this.numberOfRatings;
+    }
+    
+    public int getNumberOfStudentsInClass() {
+        return this.numberOfStudentsInClass;
     }
     
 }

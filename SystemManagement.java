@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 /**
  * Write a description of class Bookings here.
  *
@@ -12,7 +12,9 @@ public class SystemManagement
     protected int currentSize;
     private int maximumSize;
     protected int lessonListSize;
-    protected int reportList;
+    protected int bookReportLength;
+    protected int ratingReportLength;
+    protected int totalRevenue;
     
     // Constructor of SystemManagement
     public SystemManagement(int maximumSize, int currentSize) {
@@ -21,7 +23,9 @@ public class SystemManagement
         this.currentSize = currentSize;
         this.lessonListSize = 0;
         this.lessonArray = createLessons();
-        this.reportList = 0;
+        this.bookReportLength = 0;
+        this.ratingReportLength = 0;
+        this.totalRevenue = 0;
     }
     
     // the main class
@@ -33,7 +37,7 @@ public class SystemManagement
     
     public Lessons[] createLessons() 
     {
-        lessonArray = new Lessons[5];
+        lessonArray = new Lessons[6];
         Lessons l1 = new Lessons("Saturday", "morning", "English", 20, true);
         addLesson(l1); 
         Lessons l2 = new Lessons("Saturday", "afternoon", "Math", 30, true);
@@ -87,20 +91,21 @@ public class SystemManagement
             int newStudentMax = studentMax + 1;
             lessonArray[lessonID].setStudentMax(newStudentMax);
             
-            if (newStudentMax == 4){
+            if (newStudentMax == 3){
                 lessonArray[lessonID].setAvailable(false);
             }else {
-                System.out.println("More students can join this lesson");
+                System.out.println("More students can join this lesson.");
             };
             
         } else {
-            System.out.println("Sorry, this lesson is fully booked");
+            System.out.println("Sorry, this lesson is fully booked.");
         }
     }
     
-    public void addBook(int studentID, String newBook) {
+    public void addBook(String toFind, String newBook) {
         try {
-            studentArray[studentID].setBookList(newBook);
+            int studentPosition = findStudent(toFind); 
+            studentArray[studentPosition].setBookList(newBook);
         } catch (Exception e) {
             System.out.println("Could not add the book to the student record. Something went wrong.");
         }
@@ -148,7 +153,88 @@ public class SystemManagement
         currentSize = currentSize - 1; // <5>
     }
     
-    public String printReport() {
+    public int findLesson(String toFind) {
+    
+        for (int i = 0; i < currentSize; i += 1) {
+            String title = lessonArray[i].getLessonName(); // <1>
+            if (toFind == title) {  // <2>
+                return i;
+            }
+        }
+    
+        return -1;
+    }
+    
+    public void rateLesson(int lessonID, int rating) {
+        if (rating > 0 && rating < 6) {
+            try {
+                lessonArray[lessonID].setRatings(rating);
+            } catch (Exception e) {
+                System.out.println("Could not add a rating to the lesson. Something went wrong.");
+            }
+        } else {
+            System.out.println("Could not add the rating, the rating is outside the accepted range.");
+        }
+    }
+    
+    public String printLessonRatings() {
+        String report = "\n These are the lesson ratings: \n"; 
+                        
+        for (int i=0; i<6; i=i+1) { 
+            
+            int numberOfLessonRatings = lessonArray[i].getNumberOfRatings();
+            
+            if (numberOfLessonRatings > 0) {
+                Lessons currentLesson = lessonArray[i]; 
+                String lessonName = currentLesson.getLessonName();
+                String lessonTime = currentLesson.getTime();
+                String ratings = currentLesson.getRatings();
+                
+                this.ratingReportLength += 1;
+          
+                report = report + "Ratings for Lesson" + lessonName +", in the " + lessonTime + ", are " + ratings + "\n"; 
+            }
+        }    
+        
+        System.out.println(report); 
+
+        return report; 
+    }
+    
+    public void addComment(String comment, String toFind) {
+        try {
+            int studentPosition = findStudent(toFind); 
+            studentArray[studentPosition].setComment(comment);
+        } catch (Exception e) {
+            System.out.println("Could not add the book to the student record. Something went wrong.");
+        }
+    }
+    
+    public String printPriceReport(){
+        String report = "\n This is the total amount made from the lessons: \n"; 
+        
+        for (int i=0; i<6; i=i+1) { 
+            
+            int numberOfStudentsInClass = lessonArray[i].getNumberOfStudentsInClass();
+            int classPrice = lessonArray[i].getPrice();
+            String lessonName = lessonArray[i].getLessonName();
+            
+            if (numberOfStudentsInClass > 0) {
+                int totalMoney = numberOfStudentsInClass * classPrice;
+                report = report + "Funds collected for lesson " + lessonName + ", is: " + totalMoney + "\n"; 
+                
+                this.totalRevenue = totalRevenue + totalMoney;
+            }            
+        }    
+        
+        report = report + "The total revenue collected for all classes is: " + totalRevenue; 
+
+        System.out.println(report); 
+
+        return report; 
+    }
+    
+    public String printBookReport() {
         String report = "\n These are the required books: \n"; 
         
         if ( currentSize <= 0) { 
@@ -162,16 +248,11 @@ public class SystemManagement
             
             if (numberOfBooksForStudent > 0) {
                 StudentData currentStudent = studentArray[i]; 
-                int id = currentStudent.getSID();
                 String name = currentStudent.getName();
                 String books = currentStudent.getBooksString();
           
-                report = report + "Books for " + id + ", " + name + ", are:" + books; 
-                reportList += 1;
-            }
-            
-            if (i+1<currentSize) { // <8>
-              report = report + ",\n";
+                report = report + "Books for " + name + ", are:" + books + "\n"; 
+                this.bookReportLength += 1;
             }
         }    
         

@@ -62,16 +62,16 @@ public class SystemManagementTest
         boolean expectedAvailable = false;
         
         assertEquals( expectedAvailable, isLessonAvailable );
-        System.out.println("\n Test 1: After filling lesson Non Verbal Reasoning with 4 students, it is no longer available. The expected value " + expectedAvailable + " and the returnvalue " + isLessonAvailable);
+        System.out.println("\n Test 1: After filling lesson 'Non Verbal Reasoning' with 4 students, it is no longer available. Class availability expectedvalue: " + expectedAvailable + " and the return value is " + isLessonAvailable);
     }
     
     public void testAddBook(SystemManagement sm) {
-        sm.addBook(4, "");
-        sm.addBook(4, "");
-        sm.addBook(8, "");
-        sm.addBook(10, "");
-        sm.addBook(11, "");
-        sm.addBook(14, "");
+        sm.addBook("Margaux Paris", "Mental Math 1");
+        sm.addBook("Margaux Paris", "English Comprehension 3");
+        sm.addBook("Hannah Riggins", "English Advanced 1");
+        sm.addBook("David Strtton", "Verbal Reasoning -- An Introduction");
+        sm.addBook("Anna Flanagan", "Math Test Preparation Avdvanced");
+        sm.addBook("Arthur Hofesh", "English Advanced 1");
     }
     
     public void testMarkPresent(SystemManagement sm) {
@@ -84,14 +84,57 @@ public class SystemManagementTest
         
         assertEquals( expectedPresent, isPresent);
         
-        System.out.println("\n Test 3: Student Andrew Jones has been marked present. This is the value in their student record: " + isPresent + " This was the expected value " + expectedPresent);
+        System.out.println("\n Test 2: Student Andrew Jones has been marked present. This is the value in their student record: " + isPresent + " This was the expected value " + expectedPresent);
     }
 
-    public void testPrintReport(SystemManagement sm) {
-        sm.printReport();
-        int actualReportSize = sm.reportList;
+    public void testPrintBookReport(SystemManagement sm) {
+        sm.printBookReport();
+        int actualReportSize = sm.bookReportLength;
         int expectedReportSize = 5;
-        System.out.println("\n Test 4: The report has in totel this many books " + actualReportSize + " and the expected value is " + expectedReportSize);
+        System.out.println("\n Test 3: The report has in totel this many books " + actualReportSize + " and the expected value is " + expectedReportSize);
+    }
+    
+    public void testRateLesson(SystemManagement sm) {
+        sm.rateLesson(0, 4);
+        sm.rateLesson(0, 5);
+        sm.rateLesson(0, 5);
+        sm.rateLesson(0, 3);
+        sm.rateLesson(2, 4);
+        sm.rateLesson(2, 5);
+        sm.rateLesson(4, 5);
+        sm.rateLesson(5, 5);
+        
+        String lessonName = sm.lessonArray[0].getLessonName();
+        String lessonTime = sm.lessonArray[0].getTime();
+        int numberOfRatings = sm.lessonArray[0].getNumberOfRatings();
+        int expectedRatings = 4;
+        
+        assertEquals( numberOfRatings, expectedRatings);
+
+        System.out.println("\n Test 4: The lesson " + lessonName + " in the " + lessonTime + " has in totel this many ratings " + numberOfRatings + " and the expected number is " + expectedRatings);
+    }
+    
+    public void testPrintLessonRating(SystemManagement sm) {
+        sm.printLessonRatings();
+        
+        int actualReportSize = sm.ratingReportLength;
+        int expectedReportSize = 4;
+        assertEquals( actualReportSize, expectedReportSize);
+
+        System.out.println("\n Test 5: The report has in totel this many books " + actualReportSize + " and the expected value is " + expectedReportSize);
+    }
+    
+    public void testAddComment(SystemManagement sm) {
+        sm.addComment("Performing very well in class", "Holly Berry");
+        sm.addComment("Showing lots of improvement", "Andrew Jones");
+    }
+    
+    public void testPriceReport(SystemManagement sm) {
+        sm.printPriceReport();
+        
+        int actualTotalRevenue = sm.totalRevenue;
+        int expectedTotalRevenue = 5;
+        System.out.println("\n Test 6: The report shows that the total revenue from all the classes is " + actualTotalRevenue + " and the expected value is " + expectedTotalRevenue);
     }
     
     @Test
@@ -99,7 +142,11 @@ public class SystemManagementTest
         testBookLessons(sm);
         testAddBook(sm);
         testMarkPresent(sm);
-        //testPrintReport(sm);
+        testPrintBookReport(sm);
+        testRateLesson(sm);
+        testPrintLessonRating(sm);
+        testAddComment(sm);
+        testPriceReport(sm);
         System.out.println("Tests are done");
     }
 }

@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 public class StudentData
 {
-    private int sid; // <1>
+    private int sid;
     private String name;
     private String gender;
     private int dob;
@@ -16,10 +16,9 @@ public class StudentData
     private String number;
     private String comments; 
     private boolean present; 
-    protected String[] booklist;
+    protected String booklist;
     protected int numberOfBooks;
     
-    // Constructor of class LoanItems
     public StudentData(int sid, String name, String gender, int dob, String address, String number, String comments, boolean present ) {
         this.sid = sid;
         this.name = name;
@@ -27,10 +26,10 @@ public class StudentData
         this.dob = dob;
         this.address = address;
         this.number = number;
-        this.comments = comments;
         this.present = present;
+        this.comments = comments;
+        this.booklist = "";
         this.numberOfBooks = 0;
-        this.booklist = new String[15];
     }
     
     public void setSID(int newSID)
@@ -115,13 +114,11 @@ public class StudentData
     
     public void setBookList(String newBook)
     {
-        String[] newBookList = this.booklist;
-        try { //<2>
-            newBookList[numberOfBooks] = newBook; //<3>
-            this.numberOfBooks += 1; //<4>
-            this.booklist = newBookList;
-        } catch (Exception e) { //<5>
-            System.out.println("Could not add another book. Something went wrong."); //<6>
+        try {
+            this.booklist = this.booklist + ", " + newBook;
+            this.numberOfBooks += 1;
+        } catch (Exception e) { 
+            System.out.println("Could not add another book to " + getName() + ". Something went wrong.");
         }
         
     }
@@ -137,7 +134,6 @@ public class StudentData
     }
     
     public String getBooksString() {
-        String books = Arrays.toString(booklist);
-        return books;
+        return booklist;
     }
 }
