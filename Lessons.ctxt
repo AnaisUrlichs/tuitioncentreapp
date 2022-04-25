@@ -1,6 +1,5 @@
 #BlueJ class context
 comment0.target=Lessons
-comment0.text=\n\ This\ interface\ holds\ all\ the\ properties\ of\ the\ lesson\ types\n\ This\ interface\ is\ implemented\ by\ XXX\n\ \n\ @1.0.0\n
 comment1.params=day\ time\ lessonname\ price\ available
 comment1.target=Lessons(java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ boolean)
 comment10.params=newPrice

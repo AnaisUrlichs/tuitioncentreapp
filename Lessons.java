@@ -1,11 +1,5 @@
 import java.util.Arrays;
 
-/**
- * This interface holds all the properties of the lesson types
- * This interface is implemented by XXX
- * 
- * @1.0.0
- */
 public class Lessons
 {
     private int lid;

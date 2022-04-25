@@ -1,11 +1,5 @@
 import java.util.Arrays;
 
-/**
- * Abstract class StudentData - write a description of the class here
- *
- * @author (your name here)
- * @version (version number or date here)
- */
 public class StudentData
 {
     private int sid;

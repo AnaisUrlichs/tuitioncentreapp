@@ -5,12 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * The test class SystemManagementTest.
- *
- * @author  (your name)
- * @version (a version number or a date)
- */
 public class SystemManagementTest
 {
     /**
@@ -58,11 +52,10 @@ public class SystemManagementTest
         sm.bookLesson(9, 1);
         
         boolean isLessonAvailable = sm.lessonArray[3].getAvailable();
-        
         boolean expectedAvailable = false;
         
         assertEquals( expectedAvailable, isLessonAvailable );
-        System.out.println("\n Test 1: After filling lesson 'Non Verbal Reasoning' with 4 students, it is no longer available. Class availability expectedvalue: " + expectedAvailable + " and the return value is " + isLessonAvailable);
+        System.out.println("\n Test 1: After filling lesson 'Non Verbal Reasoning' with 4 students, it is no longer available. \n Class availability expectedvalue: " + expectedAvailable + " and the return value is " + isLessonAvailable);
     }
     
     public void testAddBook(SystemManagement sm) {
@@ -84,14 +77,14 @@ public class SystemManagementTest
         
         assertEquals( expectedPresent, isPresent);
         
-        System.out.println("\n Test 2: Student Andrew Jones has been marked present. This is the value in their student record: " + isPresent + " This was the expected value " + expectedPresent);
+        System.out.println("\n Test 3: Student Andrew Jones has been marked present. This is the value in their student record: " + isPresent + ". This was the expected value: " + expectedPresent);
     }
 
     public void testPrintBookReport(SystemManagement sm) {
         sm.printBookReport();
         int actualReportSize = sm.bookReportLength;
         int expectedReportSize = 5;
-        System.out.println("\n Test 3: The report has in totel this many books " + actualReportSize + " and the expected value is " + expectedReportSize);
+        System.out.println("\n Test 2: The report has in totel this many students who need books " + actualReportSize + " and the expected value is " + expectedReportSize);
     }
     
     public void testRateLesson(SystemManagement sm) {
@@ -121,7 +114,7 @@ public class SystemManagementTest
         int expectedReportSize = 4;
         assertEquals( actualReportSize, expectedReportSize);
 
-        System.out.println("\n Test 5: The report has in totel this many books " + actualReportSize + " and the expected value is " + expectedReportSize);
+        System.out.println("\n Test 5: The report has in totel this many lessons with ratings: " + actualReportSize + " and the expected value is: " + expectedReportSize);
     }
     
     public void testAddComment(SystemManagement sm) {
@@ -133,7 +126,9 @@ public class SystemManagementTest
         sm.printPriceReport();
         
         int actualTotalRevenue = sm.totalRevenue;
-        int expectedTotalRevenue = 5;
+        int expectedTotalRevenue = 105;
+        assertEquals( actualTotalRevenue, expectedTotalRevenue);
+        
         System.out.println("\n Test 6: The report shows that the total revenue from all the classes is " + actualTotalRevenue + " and the expected value is " + expectedTotalRevenue);
     }
     
@@ -141,8 +136,8 @@ public class SystemManagementTest
     public void test(SystemManagement sm) {
         testBookLessons(sm);
         testAddBook(sm);
-        testMarkPresent(sm);
         testPrintBookReport(sm);
+        testMarkPresent(sm);
         testRateLesson(sm);
         testPrintLessonRating(sm);
         testAddComment(sm);

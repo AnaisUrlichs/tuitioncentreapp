@@ -1,6 +1,5 @@
 #BlueJ class context
 comment0.target=StudentData
-comment0.text=\n\ Abstract\ class\ StudentData\ -\ write\ a\ description\ of\ the\ class\ here\n\n\ @author\ (your\ name\ here)\n\ @version\ (version\ number\ or\ date\ here)\n
 comment1.params=sid\ name\ gender\ dob\ address\ number\ comments\ present
 comment1.target=StudentData(int,\ java.lang.String,\ java.lang.String,\ int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
 comment10.params=newAddress

@@ -1,13 +1,8 @@
 import java.util.Arrays;
-/**
- * Write a description of class Bookings here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+
 public class SystemManagement
 {
-    protected StudentData[] studentArray; // <1>
+    protected StudentData[] studentArray;
     protected Lessons[] lessonArray;
     protected int currentSize;
     private int maximumSize;
@@ -16,9 +11,8 @@ public class SystemManagement
     protected int ratingReportLength;
     protected int totalRevenue;
     
-    // Constructor of SystemManagement
     public SystemManagement(int maximumSize, int currentSize) {
-        studentArray = new StudentData[maximumSize]; // <2>
+        studentArray = new StudentData[maximumSize]; 
         this.maximumSize = maximumSize;
         this.currentSize = currentSize;
         this.lessonListSize = 0;
@@ -68,8 +62,8 @@ public class SystemManagement
     }
     
     public void addStudent(StudentData item) {
-        if (currentSize < maximumSize) { //<1>
-            try { //<2>
+        if (currentSize < maximumSize) { 
+            try {
                 studentArray[currentSize] = item;
                 currentSize += 1;
             } catch (Exception e) {
@@ -122,8 +116,8 @@ public class SystemManagement
     
     public void delete(String toFind) {
         try {
-            int indexToDelete = findStudent(toFind); // <1>
-            deleteItem(indexToDelete); // <2>
+            int indexToDelete = findStudent(toFind);
+            deleteItem(indexToDelete);
         } catch (Exception e) {
             System.out.println("Could not delete item from the list. Something went wrong.");
         }
@@ -132,8 +126,8 @@ public class SystemManagement
     public int findStudent(String toFind) {
     
         for (int i = 0; i < currentSize; i += 1) {
-            String title = studentArray[i].getName(); // <1>
-            if (toFind == title) {  // <2>
+            String title = studentArray[i].getName();
+            if (toFind == title) { 
                 return i;
             }
         }
@@ -142,22 +136,22 @@ public class SystemManagement
     }
     
     public void deleteItem(int index) {
-        if (index < 0 || index >= currentSize) { // <1>
-            System.out.println("Error in delete: index is out of bounds"); // <2>
+        if (index < 0 || index >= currentSize) {
+            System.out.println("Error in delete: index is out of bounds");
             return;
         }
 
-        for (int i=index; i<currentSize; i=i+1) { // <3>
-            studentArray[i] = studentArray[i+1]; // <4>
+        for (int i=index; i<currentSize; i=i+1) { 
+            studentArray[i] = studentArray[i+1];
         }
-        currentSize = currentSize - 1; // <5>
+        currentSize = currentSize - 1; 
     }
     
     public int findLesson(String toFind) {
     
         for (int i = 0; i < currentSize; i += 1) {
-            String title = lessonArray[i].getLessonName(); // <1>
-            if (toFind == title) {  // <2>
+            String title = lessonArray[i].getLessonName();
+            if (toFind == title) {
                 return i;
             }
         }
@@ -192,7 +186,7 @@ public class SystemManagement
                 
                 this.ratingReportLength += 1;
           
-                report = report + "Ratings for Lesson" + lessonName +", in the " + lessonTime + ", are " + ratings + "\n"; 
+                report = report + "Ratings for Lesson " + lessonName +", in the " + lessonTime + ", are " + ratings + "\n"; 
             }
         }    
         
